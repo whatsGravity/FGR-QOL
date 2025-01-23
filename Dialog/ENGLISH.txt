@@ -1,0 +1,9 @@
+# Pause menu text
+    MENU_FGR_NORMAL=         Return to safe ground to access the full menu
+    MENU_FGR_QUICKRESTART=   Return to safe ground to quick restart
+
+# File creation
+    FILE_FGR_OFF=      Full-Game Run Mode : OFF
+    FILE_FGR_ON=       Full-Game Run Mode : ON
+    FILE_FGR_TOGGLE=   Toggle FGR Mode
+    FILE_FGR_PRACTICE= Start Practice File
