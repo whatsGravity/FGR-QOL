@@ -29,6 +29,7 @@ public class FGR_QOLModule : EverestModule {
     private OuiFileSelectSlot.Button toggleButton;
     private OuiFileSelectSlot.Button practiceButton;
     private OuiFileSelectSlot.Button newRunButton;
+    private TextMenu.Button restartRunButton;
     public Dictionary<int, bool> FGRFiles = new Dictionary<int, bool>();
 
 
@@ -50,11 +51,50 @@ public class FGR_QOLModule : EverestModule {
         // On.Celeste.OuiFileSelectSlot.Setup += On_OuiFileSelectSlot_Setup;
         // On.Celeste.OuiFileSelectSlot.Render += On_OuiFileSelectSlot_Render;
         Everest.Events.FileSelectSlot.OnCreateButtons += FileSelectSlot_OnCreateButtons;
+        Everest.Events.Level.OnCreatePauseMenuButtons += Level_OnCreatePauseMenuButtons;
         On.Celeste.OuiFileSelectSlot.OnNewGameSelected += On_OuiFileSelectSlot_OnNewGameSelected;
         Logger.Log(nameof(FGR_QOLModule), "Hooks Loaded");
 
     }
 
+    private void Level_OnCreatePauseMenuButtons(Level level, TextMenu menu, bool minimal)
+    {
+        restartRunButton = new TextMenu.Button("Restart Run");
+        restartRunButton.OnEnter = RestartRun;
+        menu.Insert(2, restartRunButton);
+    }
+
+    private void RestartRun()
+    {
+        SaveStats();
+        ExitToMenu();
+        if(Settings.RestartToMenu) {
+            GotoSaveFile(currentSlot);
+        } else {
+            StartNewRun();
+        }
+        throw new NotImplementedException();
+    }
+
+    private void StartNewRun()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void GotoSaveFile(OuiFileSelectSlot currentSlot)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ExitToMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void SaveStats()
+    {
+        throw new NotImplementedException();
+    }
 
     public override void Unload() {
         // TODO: unapply any hooks applied in Load()
@@ -107,6 +147,13 @@ public class FGR_QOLModule : EverestModule {
             {
                 Label = Dialog.Clean("FILE_FGR_PRACTICE"),
                 Action = EnterPracticeFile,
+                Scale = 0.7f
+            };
+            buttons.Add(practiceButton);
+            newRunButton = new OuiFileSelectSlot.Button()
+            {
+                Label = Dialog.Clean("FILE_FGR_PRACTICE"),
+                Action = StartNewRun,
                 Scale = 0.7f
             };
         }
